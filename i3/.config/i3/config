@@ -134,7 +134,7 @@ for_window [class="Nautilus"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
 # Startup applications
-exec google-chrome
+#exec google-chrome
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -191,7 +191,7 @@ set $white       #ebdbb2
 # Use custom colors for black
 set $darkblack   #1d2021
 
-# Widow Colours
+# Window Colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $white      $black      $white      $darkblack  $white
 client.unfocused        $black      $black      $white      $darkblack  $background
@@ -212,7 +212,7 @@ bar {
             statusline $foreground
             separator $darkgrey
             #                  BORDER      BACKGROUND  TEXT
-            focused_workspace  $background $background $foreground
+            focused_workspace  $foreground $background $foreground
             inactive_workspace $background $background $darkgrey
             urgent_workspace   $background $darkred    $background
         }

@@ -31,7 +31,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe' " YouCompleteMe
 "python3 install.py --all --clangd-completer
 "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=on ..
-"ls -s build/compile_commands.json
+"ln -s build/compile_commands.json
 Plug 'morhetz/gruvbox' " Colour scheme
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
