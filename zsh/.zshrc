@@ -47,7 +47,4 @@ fi
 # if it exists:
 #[ -f ~/.localzshrc ] && source ~/.localzshrc
 
-# virtualenvwrapper
-source ~/.local/bin/virtualenvwrapper.sh
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
