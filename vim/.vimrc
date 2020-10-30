@@ -41,6 +41,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
+Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdtree' " File tree explorer
 
 call plug#end()

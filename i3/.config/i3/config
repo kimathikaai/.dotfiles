@@ -252,3 +252,6 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Control+Print exec gnome-screenshot -i
 # Set the screens to turn off after 600 seconds of inactivity:
 #exec "xset dpms 600"
+
+# Change screen brightness
+exec xrandr --output eDP-1 --brightness 0.7
