@@ -42,6 +42,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
 Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty' " React
 Plug 'preservim/nerdtree' " File tree explorer
 
 call plug#end()
@@ -75,11 +76,14 @@ let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--co
 let g:ycm_confirm_extra_conf = 0
 "---------------Mappings ----------------
 let mapleader = " "
+"--- Tab navigation
+nnoremap <leader>l gt
+nnoremap <leader>h gT
 "--- Line and paragraph navigation
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
 noremap K {
 noremap J }
 noremap H ^
@@ -103,9 +107,6 @@ nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
-"--- Tab navigation
-nnoremap <C-l> gt
-nnoremap <C-h> gT
 "--- fzf.vim commands
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
@@ -125,7 +126,8 @@ nnoremap <leader>y :YcmCompleter<space>
 nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
 nnoremap <F12> :YcmCompleter<space>GoTo<CR>
 "--- NERDTree
-nnoremap <leader>n :NERDTreeToggle<CR>
+" Open nerd tree at the current file or close nerd tree if pressed again.
+nnoremap <silent> <expr> <Leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>
