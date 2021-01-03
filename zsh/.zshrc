@@ -45,6 +45,6 @@ fi
 
 # Check if there's a local zsh file to source, and source it
 # if it exists:
-#[ -f ~/.localzshrc ] && source ~/.localzshrc
+[ -f ~/.localzshrc ] && source ~/.localzshrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

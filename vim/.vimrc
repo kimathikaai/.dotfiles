@@ -11,7 +11,6 @@ set nowrap
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd VimResized * wincmd =
-
 "---------- Search
 set smartcase
 set ignorecase
@@ -24,6 +23,8 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set autoread
+set splitbelow
+set splitright
 
 "---------- Plugins
 call plug#begin('~/.vim/plugged')
@@ -40,12 +41,25 @@ Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
-Plug 'leafgarland/typescript-vim' " A plugin for typescript syntax highlighting
+Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty' " React
-Plug 'preservim/nerdtree' " File tree explorer
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'preservim/nerdtree'
+Plug 'jiangmiao/auto-pairs'
+Plug 'dense-analysis/ale'
 
 call plug#end()
+
+"---------- auto-pairs
+let g:AutoPairs = {'(':')', '[':']', '{':'}', '<':'>', "'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
+
+"---------- ale
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
 
 "---------- gruvbox
 set background=dark
@@ -74,11 +88,14 @@ let g:lightline = {
 let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--completion-style=detailed']
 " Turn off prompting to load .ycm_extra_conf.py
 let g:ycm_confirm_extra_conf = 0
+
 "---------------Mappings ----------------
 let mapleader = " "
+
 "--- Tab navigation
 nnoremap <leader>l gt
 nnoremap <leader>h gT
+
 "--- Line and paragraph navigation
 nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-j> :wincmd j<CR>
@@ -88,15 +105,17 @@ noremap K {
 noremap J }
 noremap H ^
 noremap L $
+
 "--- Insert mode navigational keys
-imap <Up>    <Nop>
-imap <Down>  <Nop>
-imap <Left>  <Nop>
-imap <Right> <Nop>
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+"imap <Up>    <Nop>
+"imap <Down>  <Nop>
+"imap <Left>  <Nop>
+"imap <Right> <Nop>
+"inoremap <C-k> <Up>
+"inoremap <C-j> <Down>
+"inoremap <C-h> <Left>
+"inoremap <C-l> <Right>
+
 "--- Tab and Shift-Tab indenting
 " Note that <tab> and <C-i> are strictly equivalent
 nmap >> <Nop>
@@ -107,30 +126,26 @@ nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
+
 "--- fzf.vim commands
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
 nnoremap <C-p> :Files <CR>
-"--- Pairing braces
-inoremap ( ()<left>
-inoremap () ()
-"inoremap (; ();
-"inoremap [ []<left>
-"inoremap [] []
-inoremap { {}<left>
-inoremap {} {}
-inoremap {<CR> {<CR>}<ESC>O
-"inoremap {;<CR> {<CR>};<ESC>O
+
 "--- YCM
 nnoremap <leader>y :YcmCompleter<space>
 nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
 nnoremap <F12> :YcmCompleter<space>GoTo<CR>
+
 "--- NERDTree
 " Open nerd tree at the current file or close nerd tree if pressed again.
 nnoremap <silent> <expr> <Leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>
 nnoremap <leader>. :cd %:h<CR>
 
-
+"--- Resources
+" vim registers"
+  "https://sanctum.geek.nz/arabesque/advanced-vim-registers/

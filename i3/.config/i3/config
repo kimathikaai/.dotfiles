@@ -134,7 +134,9 @@ for_window [class="Nautilus"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
 # Startup applications
-#exec google-chrome
+# Start up a terminal and move it to the scratchpad:
+# exec_always i3-sensible-terminal -n term-scratchpad
+# for_window [class="gnome-terminal-server" instance="term-scratchpad"] move scratchpad
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -228,6 +230,7 @@ bindsym $mod+shift+x exec i3lock --color "$background"
 exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 
 # Pulse Audio controls
+# Use pactl list short sinks for find the sink index 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
