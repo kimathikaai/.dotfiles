@@ -93,14 +93,14 @@ let g:ycm_confirm_extra_conf = 0
 let mapleader = " "
 
 "--- Tab navigation
-nnoremap <leader>l gt
-nnoremap <leader>h gT
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 
 "--- Line and paragraph navigation
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <C-l> :wincmd l<CR>
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
 noremap K {
 noremap J }
 noremap H ^
@@ -130,6 +130,7 @@ vnoremap <S-Tab> <<<Esc>gv
 "--- fzf.vim commands
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
+nnoremap <leader>L :Lines<CR>
 nnoremap <C-p> :Files <CR>
 
 "--- YCM
