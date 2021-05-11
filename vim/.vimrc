@@ -47,6 +47,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
+Plug 'dyng/ctrlsf.vim'
 
 call plug#end()
 
@@ -54,12 +55,18 @@ call plug#end()
 let g:AutoPairs = {'(':')', '[':']', '{':'}', '<':'>', "'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 
 "---------- ale
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['pylint'],
 \}
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
+let g:ale_fixers = {
+\   'javascript': ['eslint', 'prettier'],
+\   'css': ['prettier'],
+\   'python': ['black', 'isort'],
+\}
+"\   'python': ['black'],
+"\   'python': ['autopep8', 'yapf']
+let g:ale_fix_on_save = 0
 
 "---------- gruvbox
 set background=dark
@@ -133,6 +140,9 @@ nnoremap <leader>B :BLines<CR>
 nnoremap <leader>L :Lines<CR>
 nnoremap <C-p> :Files <CR>
 
+"--- ale
+nnoremap <leader>a :ALEFix<CR>
+
 "--- YCM
 nnoremap <leader>y :YcmCompleter<space>
 nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
@@ -146,6 +156,18 @@ nnoremap <silent> <expr> <Leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" :
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>
 nnoremap <leader>. :cd %:h<CR>
+
+"---------- ctrlsf
+" Need to install 'ag'
+nmap     <leader>F :CtrlSF -R<space>
+vmap     <leader>f <Plug>CtrlSFVwordPath
+nmap     <leader>f <Plug>CtrlSFCwordPath
+nnoremap <leader>t :CtrlSFToggle<CR>
+
+let g:ctrlsf_auto_preview = 1
+let g:ctrlsf_auto_focus = {
+  \ "at":"start"
+  \ }
 
 "--- Resources
 " vim registers"

@@ -231,9 +231,9 @@ exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
 
 # Pulse Audio controls
 # Use pactl list short sinks for find the sink index 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 
 # Screen brightness controls
 # xrandr | grep " connected" | cut -f1 -d " "
@@ -252,9 +252,11 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Screen capture
-bindsym Control+Print exec gnome-screenshot -i
+bindsym Control+Print exec gnome-screenshot
+bindsym Shift+Control+Print exec gnome-screenshot -a
+
 # Set the screens to turn off after 600 seconds of inactivity:
 #exec "xset dpms 600"
 
 # Change screen brightness
-exec xrandr --output eDP-1 --brightness 0.7
+exec xrandr --output eDP-1 --brightness 0.6
