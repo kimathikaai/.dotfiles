@@ -1,12 +1,14 @@
 syntax on
 
 "---------- Formatting
-set tabstop=2 softtabstop=2
-set shiftwidth=2
+set tabstop=4 softtabstop=4
+set shiftwidth=4
 set expandtab
+set clipboard=unnamedplus "sudo apt install vim-gtk"
 set smartindent
 set nu
 set relativenumber
+"set norelativenumber
 set nowrap
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -36,7 +38,6 @@ Plug 'Valloric/YouCompleteMe' " YouCompleteMe
 Plug 'morhetz/gruvbox' " Colour scheme
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
-Plug 'Valloric/YouCompleteMe' " YouCompleteMe
 Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
@@ -44,10 +45,10 @@ Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
 Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
 Plug 'dyng/ctrlsf.vim'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -72,9 +73,6 @@ let g:ale_fix_on_save = 0
 set background=dark
 colorscheme gruvbox
 "hi Normal guibg=NONE ctermbg=NONE
-
-"---------- NERDTree
-let NERDTreeShowHidden=1 " Show dot files
 
 "---------- lightline.vim
 set laststatus=2
@@ -108,10 +106,10 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-noremap K {
-noremap J }
-noremap H ^
-noremap L $
+" noremap K {
+" noremap J }
+" noremap H ^
+" noremap L $
 
 "--- Insert mode navigational keys
 "imap <Up>    <Nop>
@@ -135,9 +133,10 @@ vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 
 "--- fzf.vim commands
-nnoremap <leader>b :Buffers<CR>
+" nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :BLines<CR>
-nnoremap <leader>L :Lines<CR>
+" nnoremap <leader>L :Lines<CR>
+nnoremap <leader>b :Lines<CR>
 nnoremap <C-p> :Files <CR>
 
 "--- ale
@@ -148,17 +147,15 @@ nnoremap <leader>y :YcmCompleter<space>
 nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
 nnoremap <F12> :YcmCompleter<space>GoTo<CR>
 
-"--- NERDTree
-" Open nerd tree at the current file or close nerd tree if pressed again.
-nnoremap <silent> <expr> <Leader>n g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
-
 "--- Other
 nnoremap <leader>so :so ~/.vimrc<CR>
 nnoremap <leader>vim :tabf $MYVIMRC<CR>
 nnoremap <leader>. :cd %:h<CR>
+nnoremap <leader>g 2<C-g><CR>
 
 "---------- ctrlsf
 " Need to install 'ag'
+" sudo apt-get install silversearcher-ag
 nmap     <leader>F :CtrlSF -R<space>
 vmap     <leader>f <Plug>CtrlSFVwordPath
 nmap     <leader>f <Plug>CtrlSFCwordPath
