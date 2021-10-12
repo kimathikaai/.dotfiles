@@ -16,6 +16,11 @@ source ~/.zplug/init.zsh
 # pure configuration
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
+# zsh color palette
+zstyle :prompt:pure:path color "#83a598"
+zstyle :prompt:pure:prompt:success color "#83a598"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#83a598"
+
 prompt pure
 
 
@@ -40,3 +45,6 @@ zplug load
 # ZSH themes
 # ZSH_THEME="avit"
 # source $ZSH/oh-my-zsh.sh
+
+# DO NOT CHANGE
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
