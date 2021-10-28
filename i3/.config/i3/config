@@ -131,6 +131,7 @@ for_window [class="^.*"] border pixel 2
 # PCLVisualizer 3D Viewer
 for_window [class="vtk"] floating enable
 for_window [class="Nautilus"] floating enable
+for_window [class="Spotify"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
 # Startup applications
@@ -236,11 +237,11 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 
 # Screen brightness controls
-# xrandr | grep " connected" | cut -f1 -d " "
-# xrandr --output eDP-1 --brightness 1
-# Use these commands since xbacklight is "No outputs have backlight property"
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+exec_always xrandr --output eDP-1-1 --brightness 0.6
+# Setup source -> https://unix.stackexchange.com/a/625983
+# light repository -> https://github.com/haikarainen/light
+bindsym XF86MonBrightnessUp exec light -A 1 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 1 # decrease screen brightness
 
 # Touchpad controls
 #https://cravencode.com/post/essentials/enable-tap-to-click-in-i3wm/
@@ -252,11 +253,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Screen capture
-bindsym Control+Print exec gnome-screenshot
-bindsym Shift+Control+Print exec gnome-screenshot -a
+bindsym Print exec gnome-screenshot
+bindsym ctrl+Print exec gnome-screenshot -i
 
 # Set the screens to turn off after 600 seconds of inactivity:
 #exec "xset dpms 600"
-
-# Change screen brightness
-exec xrandr --output eDP-1 --brightness 0.6
