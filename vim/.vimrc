@@ -9,9 +9,9 @@ set clipboard=unnamedplus "sudo apt install vim-gtk"
 set smartindent
 set nu
 set relativenumber
-"set norelativenumber
+" set norelativenumber
 set nowrap
-set colorcolumn=80
+" set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd VimResized * wincmd =
 "---------- Search
@@ -39,6 +39,8 @@ Plug 'Valloric/YouCompleteMe' " YouCompleteMe
 Plug 'morhetz/gruvbox' " Colour scheme
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
 Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
@@ -50,7 +52,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
 Plug 'dyng/ctrlsf.vim'
-Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 
 call plug#end()
@@ -75,7 +76,7 @@ let g:ale_fix_on_save = 0
 "---------- gruvbox
 set background=dark
 colorscheme gruvbox
-"hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 "---------- lightline.vim
 set laststatus=2
@@ -94,13 +95,14 @@ let g:lightline = {
 
 "---------- YouCompleteMe
 nnoremap <leader>y :YcmCompleter<space>
-nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
-nnoremap <F12> :tab<space>YcmCompleter<space>GoTo<CR>
+" nnoremap <S-F12> :YcmCompleter<space>GoToReferences<CR>
+nnoremap yr :YcmCompleter<space>GoToReferences<CR>
+nnoremap yt :tab<space>YcmCompleter<space>GoTo<CR>
 let g:ycm_clangd_args = ['-log=verbose', '--pretty', '--background-index', '--completion-style=detailed']
 " Turn off prompting to load .ycm_extra_conf.py
 let g:ycm_confirm_extra_conf = 0
 " Open definition in a new vertical split
-" let g:ycm_goto_buffer_command = 'split-or-existing-window'
+let g:ycm_goto_buffer_command = 'split-or-existing-window'
 
 "---------- NERDTree
 nnoremap <leader>n :NERDTreeFind<CR>
@@ -113,7 +115,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 " autocmd VimEnter * NERDTreeFind | if argc() > 0 || exists("s:std_in") | endif
 
 " let NERDTreeAutoDeleteBuffer = 1
-" let NERDTreeQuitOnOpen = 1
+let NERDTreeQuitOnOpen = 1
 " let NERDTreeMinimalUI = 1
 " let NERDTreeDirArrows = 1
 

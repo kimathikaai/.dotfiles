@@ -144,7 +144,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -172,6 +173,23 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# redshift modes
+bindsym $mod+b mode "$mode_redshift"
+set $mode_redshift Set colour temperature: (a)uto, (r)eset, (2)500K, (3)000K, (4)000K, (5)000K
+set $kill_redshift pkill -9 redshift;
+mode "$mode_redshift" {
+    bindsym a exec --no-startup-id "$kill_redshift redshift -P -t 5000:4000", mode "default"
+    bindsym r exec --no-startup-id "$kill_redshift redshift -x", mode "default"
+    bindsym 2 exec --no-startup-id "$kill_redshift redshift -P -O 2500", mode "default"
+    bindsym 3 exec --no-startup-id "$kill_redshift redshift -P -O 3000", mode "default"
+    bindsym 4 exec --no-startup-id "$kill_redshift redshift -P -O 4000", mode "default"
+    bindsym 5 exec --no-startup-id "$kill_redshift redshift -P -O 5000", mode "default"
+
+    # exit mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 # gruvbox dark
 set $background  #282828
 set $foreground  #ebdbb2
@@ -196,8 +214,9 @@ set $darkblack   #1d2021
 
 # Window Colours
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
-client.focused          $white      $black      $white      $darkblack  $white
-client.unfocused        $black      $black      $white      $darkblack  $background
+# client.focused          $white      $black      $white      $darkblack  $white
+client.focused          $blue       $black      $blue       $darkblack  $blue
+client.unfocused        $black      $black      $blue       $darkblack  $background
 client.focused_inactive $black      $black      $white      $darkblack  $background
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $background
@@ -212,10 +231,12 @@ bar {
         position top
         colors {
             background $background
-            statusline $foreground
+            # statusline $foreground
+            statusline $blue
             separator $darkgrey
             #                  BORDER      BACKGROUND  TEXT
-            focused_workspace  $foreground $background $foreground
+            # focused_workspace  $foreground $background $foreground
+            focused_workspace  $blue       $background $blue
             inactive_workspace $background $background $darkgrey
             urgent_workspace   $background $darkred    $background
         }
@@ -225,21 +246,30 @@ bar {
 exec --no-startup-id compton
 
 # Lock screen
-bindsym $mod+shift+x exec i3lock --color "$background"
+# bindsym $mod+shift+x exec i3lock --color "$background"
+bindsym $mod+shift+x exec i3lock --image $HOME/.config/wallpaper/nikolai-edit.png --no-unlock-indicator
 
 # Set wallpaper:
-exec_always feh --bg-fill $HOME/.config/wallpaper/warty-final-ubuntu.png
+exec_always feh --bg-fill $HOME/.config/wallpaper/nikolai-edit.jpg
 
 # Pulse Audio controls
 # Use pactl list short sinks for find the sink index 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
+# Resource: https://sourcecodeartisan.com/2020/12/03/i3-and-pulse-audio.html
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl info | grep 'Default Sink: ' | sed 's/^Default Sink: //') +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl info | grep 'Default Sink: ' | sed 's/^Default Sink: //') -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $(pactl info | grep 'Default Sink: ' | sed 's/^Default Sink: //') toggle # mute sound
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
+# bindsym $mod+F9 exec ~/.config/i3_scripts/toggle_sink.sh
 
 # Screen brightness controls
-exec_always xrandr --output eDP-1-1 --brightness 0.6
 # Setup source -> https://unix.stackexchange.com/a/625983
 # light repository -> https://github.com/haikarainen/light
+exec light -G 16
 bindsym XF86MonBrightnessUp exec light -A 1 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 1 # decrease screen brightness
 
