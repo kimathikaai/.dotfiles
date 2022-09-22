@@ -131,6 +131,7 @@ for_window [class="^.*"] border pixel 2
 # PCLVisualizer 3D Viewer
 for_window [class="vtk"] floating enable
 for_window [class="Nautilus"] floating enable
+for_window [class="Nautilus"] resize set 900 500
 for_window [class="Spotify"] floating enable
 # Assigning program workspaces
 #assign [class="Google-chrome"] $workspace2
@@ -189,6 +190,7 @@ mode "$mode_redshift" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+exec --no-startup-id $kill_redshift redshift -P -t 5000:3000
 
 # gruvbox dark
 set $background  #282828

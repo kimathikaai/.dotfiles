@@ -1,4 +1,23 @@
-syntax on
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'tpope/vim-fugitive' " Git wrapper for vim
+Plug 'morhetz/gruvbox' " Colour scheme
+Plug 'tpope/vim-commentary' " Smart commenting
+Plug 'tpope/vim-repeat' " Apply repeat to plugin maps
+Plug 'tpope/vim-surround' " Mappings for pairs
+Plug 'jiangmiao/auto-pairs' " Auto apply matching pairs
+Plug 'windwp/nvim-autopairs'
+Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
+Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
+Plug 'rust-lang/rust.vim'
+Plug 'dense-analysis/ale' " Provide fixing and linting
+Plug 'dyng/ctrlsf.vim' " File content searching
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
 
 let mapleader = " "
 "---------- Formatting
@@ -10,10 +29,7 @@ set smartindent
 set scrolloff=1
 set nu
 set relativenumber
-" set norelativenumber
 set nowrap
-" set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd VimResized * wincmd =
 "---------- Search
 set smartcase
@@ -24,38 +40,19 @@ set wildmenu
 "---------- Files
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
+set undodir=~/.config/nvim/undodir
 set undofile
 set autoread
 set splitbelow
 set splitright
 
-"---------- Plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'morhetz/gruvbox' " Colour scheme
-Plug 'tpope/vim-fugitive' " Git wrapper for vim
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
-Plug 'itchyny/lightline.vim' " statusline/tabline plugin for Vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
-Plug 'junegunn/fzf.vim'
-Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
-Plug 'rust-lang/rust.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'jiangmiao/auto-pairs'
-Plug 'dense-analysis/ale'
-Plug 'dyng/ctrlsf.vim'
-Plug 'preservim/nerdtree'
-
-call plug#end()
+"---------- gruvbox
+set background=dark
+colorscheme gruvbox
+set termguicolors
 
 "---------- auto-pairs
-let g:AutoPairs = {'(':')', '[':']', '{':'}', '<':'>', "'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
+" let g:AutoPairs = {'(':')', '[':']', '{':'}', '<':'>', "'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 
 "---------- ale
 let g:ale_linters = {
@@ -67,47 +64,14 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'python': ['black', 'isort'],
 \   'rust': ['rustfmt'],
+\   'cpp': ['clang-format'],
 \}
-"\   'python': ['black'],
-"\   'python': ['autopep8', 'yapf']
 let g:ale_fix_on_save = 0
-
-"---------- gruvbox
-set background=dark
-colorscheme gruvbox
-" hi Normal guibg=NONE ctermbg=NONE
-
-"---------- lightline.vim
-set laststatus=2
-let g:lightline = {
-    \   'colorscheme': 'gruvbox',
-    \   'active': {
-    \       'left': [ 
-    \           [ 'mode', 'paste' ],
-    \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] 
-    \       ]
-    \   },
-    \   'component_function': {
-    \       'gitbranch': 'FugitiveHead'
-    \   }
-    \}
 
 "---------- NERDTree
 nnoremap <leader>n :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
 
-"---------- ctrlsf
-" Need to install 'ag'
-" sudo apt-get install silversearcher-ag
-nmap     <leader>F :CtrlSF -R<space>
-vmap     <leader>f <Plug>CtrlSFVwordPath<CR>
-nmap     <leader>f <Plug>CtrlSFCwordPath<CR>
-nnoremap <leader>t :CtrlSFToggle<CR>
-
-let g:ctrlsf_auto_preview = 1
-let g:ctrlsf_auto_focus = {
-  \ "at":"start"
-  \ }
 
 "---------------Mappings ----------------
 "--- Line and paragraph navigation
@@ -127,22 +91,30 @@ nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 
-"--- Searching
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
 "-- Undo break points
 inoremap , ,<c-g>u
 
 "--- fzf.vim commands
-" nnoremap <leader>B :Buffers<CR>
-" nnoremap <leader>B :BLines<CR>
-nnoremap <leader>b :Lines<CR>
-" nnoremap <leader>b :Lines<CR>
+nnoremap <leader>b :BLines<CR>
+nnoremap <leader>ls :Buffers<CR>
 nnoremap <C-p> :Files <CR>
+nnoremap <leader>f :Ag<space>
+
+"---------- ctrlsf
+" Need to install 'ag'
+" sudo apt-get install silversearcher-ag
+nmap     <leader>F :CtrlSF -R<space>
+vmap     <leader>f <Plug>CtrlSFVwordPath<CR>
+nmap     <leader>f <Plug>CtrlSFCwordPath<CR>
+nnoremap <leader>t :CtrlSFToggle<CR>
+let g:ctrlsf_auto_preview = 1
+let g:ctrlsf_auto_focus = {
+  \ "at":"start"
+  \ }
 
 "--- fugitive
 nnoremap <leader>gs :G<CR>
+
 "--- ale
 nnoremap <leader>a :ALEFix<CR>
 
@@ -153,7 +125,6 @@ nnoremap <leader>. :cd %:h<CR>
 nnoremap <leader>g 2<C-g><CR>
 inoremap jk <Esc>
 
- 
 """ COC config
 " Map <tab> to trigger completion and navigate to the next item
 function! s:check_back_space() abort
@@ -195,6 +166,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Symbol renaming.
-nmap <leader> rn <Plug>(coc-rename)
-
+" quickfix window
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
