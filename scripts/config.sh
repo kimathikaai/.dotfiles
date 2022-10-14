@@ -2,7 +2,7 @@ stow_dotfiles() {
   local files=(
     ".aliases"
     ".gitconfig"
-    ".profile*"
+    ".profile.*"
     ".vimrc"
     ".zshrc"
     ".zprofile"

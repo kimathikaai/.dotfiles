@@ -1,5 +1,5 @@
-# You have to install coc extensions manually (e.g. coc-pyright)
-# https://github.com/neoclide/coc.nvim
+" You have to install coc extensions manually (e.g. coc-pyright)
+" https://github.com/neoclide/coc.nvim
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -53,4 +53,3 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
