@@ -6,6 +6,11 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
+# Source all profile files
+for file in $HOME/.profile*; do
+  source "$file"
+done
+
 # Initialize scripts
 # To install useful key bindings and fuzzy completion
 # $(brew --prefix)/opt/fzf/install
@@ -48,11 +53,6 @@ prompt pure
 export BAT_THEME="zenburn"
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 export EDITOR="nvim"
-
-# Source all profile files
-for file in $HOME/.profile*; do
-  source "$file"
-done
 
 # Source aliases
 [ -f ~/.aliases ] && source ~/.aliases
