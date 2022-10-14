@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # search history
 HISTSIZE=10000
@@ -7,14 +7,12 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # Initialize scripts
-[ -f ~/.scripts/clockify-cli.zsh ] && source ~/.scripts/clockify-cli.zsh
-[ -f ~/.scripts/conda.zsh ] && source ~/.scripts/conda.zsh
-[ -f ~/.scripts/general.zsh ] && source ~/.scripts/general.zsh
-[ -f ~/.scripts/env.zsh ] && source ~/.scripts/env.zsh
-[ -f ~/.scripts/fzf.zsh ] && source ~/.scripts/fzf.zsh
+# To install useful key bindings and fuzzy completion
+# $(brew --prefix)/opt/fzf/install
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/kimathi/.zplug/repos/robbyrussell/oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 
 # Check if z-plug is installed or not. If not, install it:
 # https://github.com/zplug/zplug
@@ -25,20 +23,7 @@ fi
 
 source ~/.zplug/init.zsh
 
-# pure configuration
-fpath+=$HOME/.zsh/pure
-autoload -U promptinit; promptinit
-# zsh color palette
-zstyle :prompt:pure:path color "#83a598"
-zstyle :prompt:pure:prompt:success color "#83a598"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#83a598"
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-
-prompt pure
-
-
 # List of plugins to load
-
 zplug "plugins/git", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search"
@@ -52,10 +37,23 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load
+zplug load  --verbose
 
-# ZSH themes
-# ZSH_THEME="avit"
-# source $ZSH/oh-my-zsh.sh
+# pure configuration
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
+autoload -U promptinit; promptinit
+prompt pure
 
+# Additional exports
+export BAT_THEME="zenburn"
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+export EDITOR="nvim"
+
+# Source all profile files
+for file in $HOME/.profile*; do
+  source "$file"
+done
+
+# Source aliases
+[ -f ~/.aliases ] && source ~/.aliases
 
