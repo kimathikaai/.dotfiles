@@ -47,12 +47,14 @@ zplug load  --verbose
 # pure configuration
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
+zstyle :prompt:pure:git:stash show yes
 prompt pure
 
 # Additional exports
 export BAT_THEME="zenburn"
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 export EDITOR="nvim"
+export CLICOLOR=1 # enable color output via 'ls'
 
 # Source aliases
 [ -f ~/.aliases ] && source ~/.aliases

@@ -19,7 +19,8 @@ packages=(
 	stow			    #  https://www.gnu.org/software/stow/
 	python3			    #  https://docs.python-guide.org/starting/install3/osx/
 	python@3.8
-    the_silver_searcher # https://github.com/ggreer/the_silver_searcher
+    the_silver_searcher #  https://github.com/ggreer/the_silver_searcher
+    exa                 #  https://github.com/ogham/exa
 )
 
 install_packages() {
