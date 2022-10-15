@@ -10,6 +10,7 @@ set -o pipefail
 . scripts/cli.sh
 . scripts/oh-my-zsh.sh
 . scripts/config.sh
+. scripts/fonts.sh
 
 cleanup() {
   info "Finishing..."
@@ -29,6 +30,11 @@ main() {
   install_packages
   warn "Remember $(brew --prefix)/opt/fzf/install"
   success "Finished installing Homebrew packages"
+
+  info "======= Homebrew Fonts ======="
+  wait_input
+  install_fonts
+  success "Finished installing fonts"
 
   info "======= Oh-my-zsh ======="
   wait_input

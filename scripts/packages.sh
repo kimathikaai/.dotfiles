@@ -1,5 +1,7 @@
 taps=(
   homebrew/core
+  homebrew/cask
+  homebrew/cask-fonts
 )
 
 packages=(
