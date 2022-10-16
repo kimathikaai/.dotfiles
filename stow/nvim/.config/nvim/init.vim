@@ -2,6 +2,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'tpope/vim-fugitive' " Git wrapper for vim
 Plug 'morhetz/gruvbox' " Colour scheme
+Plug 'arcticicestudio/nord-vim' " Nord theme
 Plug 'tpope/vim-commentary' " Smart commenting
 Plug 'tpope/vim-repeat' " Apply repeat to plugin maps
 Plug 'tpope/vim-surround' " Mappings for pairs
@@ -48,9 +49,8 @@ set autoread
 set splitbelow
 set splitright
 
-"---------- gruvbox
-set background=dark
-colorscheme gruvbox
+" set background=dark
+colorscheme nord
 " set notermguicolors
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -66,6 +66,7 @@ let g:ale_linters = {
 " \   'python': ['pylint'],
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
+\   'json': ['eslint', 'prettier'],
 \   'css': ['prettier'],
 \   'python': ['black', 'isort'],
 \   'rust': ['rustfmt'],
