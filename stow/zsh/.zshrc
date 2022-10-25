@@ -48,6 +48,9 @@ zplug load  --verbose
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 zstyle :prompt:pure:git:stash show yes
+zstyle :prompt:pure:prompt:success color yellow
+# zstyle :prompt:pure:git:branch color cyan
+zstyle :prompt:pure:virtualenv color magenta
 prompt pure
 
 # Additional exports

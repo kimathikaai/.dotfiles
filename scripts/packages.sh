@@ -23,6 +23,7 @@ packages=(
 	python@3.8
     the_silver_searcher #  https://github.com/ggreer/the_silver_searcher
     exa                 #  https://github.com/ogham/exa
+    jq                  #  https://stedolan.github.io/jq/
 )
 
 install_packages() {

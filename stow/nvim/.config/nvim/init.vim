@@ -9,16 +9,21 @@ Plug 'tpope/vim-surround' " Mappings for pairs
 Plug 'jiangmiao/auto-pairs' " Auto apply matching pairs
 Plug 'windwp/nvim-autopairs'
 Plug 'RRethy/vim-illuminate' " Plugin to highlight the word under the cursor
+" Plug 'itchyny/vim-cursorword'
 Plug 'octol/vim-cpp-enhanced-highlight' " Better C++ Syntax Highlighting
 Plug 'rust-lang/rust.vim'
 Plug 'dense-analysis/ale' " Provide fixing and linting
 Plug 'dyng/ctrlsf.vim' " File content searching
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+" Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
+" Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
+
 
 runtime coc.vim
 
@@ -55,7 +60,16 @@ colorscheme nord
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+" lightline
+set noshowmode
+let g:lightline = {
+    \ 'colorscheme': 'seoul256',
+    \}
 
+" Keep the sign gutter open at all times
+let g:ale_sign_column_always = 1
+
+"
 "---------- auto-pairs
 " let g:AutoPairs = {'(':')', '[':']', '{':'}', '<':'>', "'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 
@@ -66,13 +80,15 @@ let g:ale_linters = {
 " \   'python': ['pylint'],
 let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
-\   'json': ['eslint', 'prettier'],
+\   'json': ['jq'],
 \   'css': ['prettier'],
 \   'python': ['black', 'isort'],
 \   'rust': ['rustfmt'],
 \   'cpp': ['clang-format'],
 \}
 let g:ale_fix_on_save = 0
+"--- ale
+nnoremap <leader>a :ALEFix<CR>
 
 "---------- NERDTree
 nnoremap <leader>n :NERDTreeFind<CR>
@@ -121,8 +137,6 @@ let g:ctrlsf_auto_focus = {
 "--- fugitive
 nnoremap <leader>gs :G<CR>
 
-"--- ale
-nnoremap <leader>a :ALEFix<CR>
 
 "--- Other
 nnoremap <leader>so :so $MYVIMRC<CR>
