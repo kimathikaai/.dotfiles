@@ -62,3 +62,6 @@ export CLICOLOR=1 # enable color output via 'ls'
 # Source aliases
 [ -f ~/.aliases ] && source ~/.aliases
 
+# Sourcde local zsh
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
+

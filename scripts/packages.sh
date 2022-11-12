@@ -24,6 +24,7 @@ packages=(
     the_silver_searcher #  https://github.com/ggreer/the_silver_searcher
     exa                 #  https://github.com/ogham/exa
     jq                  #  https://stedolan.github.io/jq/
+    lucassabreu/tap/clockify-cli    #  https://github.com/lucassabreu/clockify-cli
 )
 
 install_packages() {

@@ -4,3 +4,10 @@ alias szsh="source ~/.zshrc"
 alias l="exa --long --icons --sort=type"
 alias la="exa --long --all --icons --sort=type"
 alias lt="exa --tree --long --icons --sort=type"
+
+# clockify-clockify
+alias clin="clockify-cli in -i"
+alias clout="clockify-cli out"
+alias clr="clockify-cli report"
+alias clo="clockify-cli clone"
+
