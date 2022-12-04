@@ -21,6 +21,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " command-line fuzzy search
 Plug 'junegunn/fzf.vim'
 " Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim'
+" If you don't have nodejs and yarn
+" use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
+" see: https://github.com/iamcco/markdown-preview.nvim/issues/50
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -55,7 +59,7 @@ set splitbelow
 set splitright
 
 " set background=dark
-colorscheme nord
+colorscheme gruvbox
 " set notermguicolors
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -93,6 +97,7 @@ nnoremap <leader>a :ALEFix<CR>
 "---------- NERDTree
 nnoremap <leader>n :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
+let g:NERDTreeMinimalMenu=1
 
 
 "---------------Mappings ----------------
@@ -148,3 +153,7 @@ inoremap jk <Esc>
 " quickfix window
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
+
+" enable spell-check for markdown files
+autocmd FileType markdown setlocal spell
+autocmd FileType markdown setlocal wrap
