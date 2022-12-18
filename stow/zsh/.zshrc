@@ -56,6 +56,7 @@ prompt pure
 # Additional exports
 export BAT_THEME="zenburn"
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
 export EDITOR="nvim"
 export CLICOLOR=1 # enable color output via 'ls'
 
