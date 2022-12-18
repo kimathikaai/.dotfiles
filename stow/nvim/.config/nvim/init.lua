@@ -145,6 +145,9 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "number"
 
+-- Decrease update time
+vim.opt.updatetime = 50
+
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -233,3 +236,29 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.g.undotree_SetFocusWhenToggle = 1
 
 -- [[ LSP Configuration ]]
+local lsp = require("lsp-zero")
+
+lsp.preset('recommended')
+
+lsp.ensure_installed({
+    'pyright',
+    'eslint',
+    'sumneko_lua'
+})
+
+-- This fucntion gets run when an LSP connects to a particular buffer
+lsp.on_attach(function(_, bufnr)
+    local opts = {buffer = bufnr, remap = false} 
+
+    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "gr", require('telescope.builtin').lsp_references, opts)
+    -- vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("n", '<leader>vd', require('telescope.builtin').diagnostics, opts)
+    vim.keymap.set("n", '<leader>ds', require('telescope.builtin').lsp_document_symbols, opts)
+    vim.keymap.set("n", '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts)
+
+end)
+
+lsp.setup()

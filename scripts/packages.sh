@@ -27,12 +27,19 @@ packages=(
     lucassabreu/tap/clockify-cli    #  https://github.com/lucassabreu/clockify-cli
 )
 
+casks=(
+    iterm2
+)
+
 install_packages() {
   info "Configuring taps"
   apply_brew_taps "${taps[@]}"
 
   info "Installing packages..."
   install_brew_formulas "${packages[@]}"
+  
+  info "Installing casks..."
+  install_brew_formulas "${casks[@]}"
 
   info "Cleaning up brew packages..."
   brew cleanup
