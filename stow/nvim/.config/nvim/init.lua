@@ -16,14 +16,23 @@ require('packer').startup(function(use)
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
-    use { -- Highlight, edit, and navigate code
+    -- Highlight, edit, and navigate code
+    use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
     }
+    -- Visualize treesitter objects
+    use { 'nvim-treesitter/playground' }
+    -- Additional text objects via treesitter
+    use {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = 'nvim-treesitter',
+    }
 
-    use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+    -- Add indentation guides even on blank lines
+    use 'lukas-reineke/indent-blankline.nvim'
 
     use {
         'numToStr/Comment.nvim',
@@ -31,6 +40,9 @@ require('packer').startup(function(use)
             require('Comment').setup()
         end
     }
+
+    -- See the cursor jump
+    use { 'danilamihailov/beacon.nvim' }
 
     -- tpope the legend
     use('tpope/vim-surround')
@@ -130,7 +142,7 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.o.breakindent = true
 vim.o.linebreak = true
 
@@ -139,7 +151,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
@@ -169,7 +181,6 @@ require('indent_blankline').setup {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -180,6 +191,8 @@ vim.keymap.set('n', '<leader>b', function()
         previewer = false,
     })
 end, { desc = 'Fuzzily search in current buffer]' })
+vim.keymap.set('n', '<leader>mm', require('telescope.builtin').keymaps)
+vim.keymap.set('n', '<leader>cs', require('telescope.builtin').colorscheme)
 
 
 vim.keymap.set('n', '<leader>LS', require('telescope.builtin').oldfiles)
@@ -210,6 +223,42 @@ require'nvim-treesitter.configs'.setup {
             node_incremental = '<TAB>',
             node_decremental = '<S-TAB>',
         },
+    },
+
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ['aa'] = '@parameter.outer',
+                ['ia'] = '@parameter.inner',
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                [']m'] = '@function.outer',
+                [']]'] = '@class.outer',
+            },
+            goto_next_end = {
+                [']M'] = '@function.outer',
+                [']['] = '@class.outer',
+            },
+            goto_previous_start = {
+                ['[m'] = '@function.outer',
+                ['[['] = '@class.outer',
+            },
+            goto_previous_end = {
+                ['[M'] = '@function.outer',
+                ['[]'] = '@class.outer',
+            },
+        }
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
