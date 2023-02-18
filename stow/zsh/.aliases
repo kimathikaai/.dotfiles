@@ -1,8 +1,7 @@
 alias v="nvim"
 alias zsh="nvim ~/.zshrc"
 alias szsh="source ~/.zshrc"
-alias l="exa --long --icons --sort=type"
-alias la="exa --long --all --icons --sort=type"
+alias ll="exa --long --all --icons --sort=type"
 alias lt="exa --tree --long --icons --sort=type"
 
 # clockify-clockify

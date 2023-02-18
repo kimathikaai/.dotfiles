@@ -25,6 +25,8 @@ packages=(
     exa                 #  https://github.com/ogham/exa
     jq                  #  https://stedolan.github.io/jq/
     lucassabreu/tap/clockify-cli    #  https://github.com/lucassabreu/clockify-cli
+    tmux
+    ripgrep
 )
 
 casks=(

@@ -31,6 +31,12 @@ require('packer').startup(function(use)
         after = 'nvim-treesitter',
     }
 
+    -- View real-time markdown
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
+
     -- Add indentation guides even on blank lines
     use 'lukas-reineke/indent-blankline.nvim'
 
@@ -122,13 +128,17 @@ vim.keymap.set("v", "<leader>d", "\"_dP")
 vim.keymap.set("n", "<leader>so", ":so $MYVIMRC<CR>")
 vim.keymap.set("n", "<leader>vim", ":tabf $MYVIMRC<CR>")
 
+-- tabbing 
+vim.keymap.set("v", ">", "><Esc>gv")
+vim.keymap.set("v", "<", "<<Esc>gv")
+
 -- [[ Movement Keymaps ]]
 vim.keymap.set('n', '<leader>j', "<C-W><C-J>")
 vim.keymap.set('n', '<leader>k', "<C-W><C-K>")
 vim.keymap.set('n', '<leader>l', "<C-W><C-L>")
 vim.keymap.set('n', '<leader>h', "<C-W><C-H>")
 
--- [[ Geneal Sets ]]
+-- [[ Geneal Settings ]]
 -- Make line numbers default
 vim.opt.relativenumber = true
 
@@ -163,6 +173,9 @@ vim.opt.updatetime = 50
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
+-- Netrw
+vim.g.netrw_liststyle = 3
+
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -170,6 +183,10 @@ vim.o.smartcase = true
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.cmd [[colorscheme rose-pine]]
+
+-- Opening new windows
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
 -- [[ Configure indent-blankline ]]
 -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -200,8 +217,8 @@ vim.keymap.set('n', '<leader>ls', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').git_files)
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags)
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string)
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep)
+-- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string)
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics)
 
 -- [[ Configure Treesitter ]]
@@ -243,20 +260,20 @@ require'nvim-treesitter.configs'.setup {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-                [']m'] = '@function.outer',
-                [']]'] = '@class.outer',
+                [']m'] = '@class.outer',
+                [']]'] = '@function.outer',
             },
             goto_next_end = {
-                [']M'] = '@function.outer',
-                [']['] = '@class.outer',
+                [']M'] = '@class.outer',
+                [']['] = '@function.outer',
             },
             goto_previous_start = {
-                ['[m'] = '@function.outer',
-                ['[['] = '@class.outer',
+                ['[m'] = '@class.outer',
+                ['[['] = '@function.outer',
             },
             goto_previous_end = {
-                ['[M'] = '@function.outer',
-                ['[]'] = '@class.outer',
+                ['[M'] = '@class.outer',
+                ['[]'] = '@function.outer',
             },
         }
     },
@@ -295,9 +312,25 @@ lsp.ensure_installed({
     'sumneko_lua'
 })
 
+vim.diagnostic.config({
+  virtual_text = {
+    -- source = "always",  -- Or "if_many"
+    source = "always",
+    prefix = '●', -- Could be '■', '▎', 'x'
+  },
+  severity_sort = true,
+  float = {
+    source = "always",  -- Or "if_many"
+  },
+})
+vim.api.nvim_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+
 -- This fucntion gets run when an LSP connects to a particular buffer
 lsp.on_attach(function(_, bufnr)
-    local opts = {buffer = bufnr, remap = false} 
+    print("lsp attached")
+    local opts = {buffer = bufnr, remap = false}
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "gr", require('telescope.builtin').lsp_references, opts)
@@ -307,6 +340,7 @@ lsp.on_attach(function(_, bufnr)
     vim.keymap.set("n", '<leader>vd', require('telescope.builtin').diagnostics, opts)
     vim.keymap.set("n", '<leader>ds', require('telescope.builtin').lsp_document_symbols, opts)
     vim.keymap.set("n", '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, opts)
+    vim.keymap.set("n", '<leader>a', function() vim.lsp.buf.format() end, opts)
 
 end)
 
