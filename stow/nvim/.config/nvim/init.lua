@@ -31,6 +31,15 @@ require('packer').startup(function(use)
         after = 'nvim-treesitter',
     }
 
+    -- Git
+    use { 'tpope/vim-fugitive' }
+
+    -- Auto pairing
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+
     -- View real-time markdown
     use({
         "iamcco/markdown-preview.nvim",
@@ -118,6 +127,8 @@ vim.g.maplocalleader = ' '
 
 -- No need to reqch for Esc key
 vim.keymap.set('i', 'jk', '<Esc>')
+vim.keymap.set('i', 'JK', '<Esc>')
+-- vim.keymap.set('i', 'kj', '<Esc>:w<CR>')
 
 -- Won't loose my replace register content
 vim.keymap.set("x", "<leader>p", "\"_dP")
@@ -141,6 +152,7 @@ vim.keymap.set('n', '<leader>h', "<C-W><C-H>")
 -- [[ Geneal Settings ]]
 -- Make line numbers default
 vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- Share clipboards
 vim.opt.clipboard = "unnamedplus"
@@ -179,6 +191,7 @@ vim.g.netrw_liststyle = 3
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.hlsearch = true
 
 -- Set colorscheme
 vim.o.termguicolors = true
@@ -308,8 +321,7 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
     'pyright',
-    'eslint',
-    'sumneko_lua'
+    'eslint'
 })
 
 vim.diagnostic.config({

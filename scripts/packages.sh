@@ -27,6 +27,7 @@ packages=(
     lucassabreu/tap/clockify-cli    #  https://github.com/lucassabreu/clockify-cli
     tmux
     ripgrep
+    htop
 )
 
 casks=(

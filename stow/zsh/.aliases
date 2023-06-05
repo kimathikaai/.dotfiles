@@ -10,3 +10,11 @@ alias clout="clockify-cli out"
 alias clr="clockify-cli report -S"
 alias clo="clockify-cli clone"
 
+# virtualenv
+alias sx="source ~/workspace/envs/xdom/bin/activate"
+alias sl="source ~/workspace/envs/lemon/bin/activate"
+
+# navigation
+alias cdD="cd ~/workspace/DomainBed"
+alias cdd="cd ~/scratch/saved/domainbed_results"
+

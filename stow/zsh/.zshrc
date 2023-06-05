@@ -66,3 +66,6 @@ export CLICOLOR=1 # enable color output via 'ls'
 # Sourcde local zsh
 [ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
+# Java installation
+# https://mkyong.com/java/how-to-install-java-on-mac-osx/#homebrew-install-latest-java-on-macos
+
