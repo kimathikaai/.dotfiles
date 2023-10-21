@@ -10,6 +10,7 @@ packages=(
 	zsh			        #  https://sourabhbajaj.com/mac-setup/iTerm/zsh.html
 	zplug			    #  https://github.com/zplug/zplug
 	fzf			        #  https://github.com/junegunn/fzf
+    ffmpeg
 	git
 	neovim 			    #  https://neovim.io/
 	isort			    #  https://pycqa.github.io/isort/

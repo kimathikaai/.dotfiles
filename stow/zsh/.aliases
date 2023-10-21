@@ -13,8 +13,13 @@ alias clo="clockify-cli clone"
 # virtualenv
 alias sx="source ~/workspace/envs/xdom/bin/activate"
 alias sl="source ~/workspace/envs/lemon/bin/activate"
+alias sm="source ~/workspace/envs/memorii/bin/activate"
 
 # navigation
 alias cdD="cd ~/workspace/DomainBed"
 alias cdd="cd ~/scratch/saved/domainbed_results"
+alias cdp="cd ~/workspace/sandbox/gatsby/personal-website/"
+
+# nvim
+alias nv="nvim **"
 
